@@ -1,10 +1,15 @@
 -- All payment details for the first order of a customer.
-select
+with first_orders as
+(select
 * from
 (select *
 ,ROW_NUMBER() OVER (partition by customer_id order by payment_date) rw
-from payment) t1
-where rw = 1
+from payment
+order by 2) t1
+where rw = 1)
+
+select * from first_orders
+
 
 -- list of orders of payments for staff members in reverse?
 select *, 
