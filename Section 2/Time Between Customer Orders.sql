@@ -5,7 +5,8 @@ t1.*
 ,extract(epoch from payment_date - lag_date)/3600 as hours_between_orders
 from(
 select *
-,lag(payment_date) over(partition by customer_id order by payment_date) lag_date
+,lag(payment_date) over(partition by customer_id) lag_date
+,row_number()  over(partition by customer_id) order_rank
 from payment ) t1
 
 -- using window function alias to calculate moving averages
