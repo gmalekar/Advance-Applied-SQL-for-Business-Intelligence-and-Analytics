@@ -32,7 +32,7 @@ group by 1,2
 ) t2
 where t2.row_number = 1),
 
-agg as(
+agg as( -- getting all the ratings for a customer
 select customer_id
 ,count(*) total_rentals
 ,array_agg(distinct rating) all_ratings
